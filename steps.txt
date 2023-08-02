@@ -1,0 +1,112 @@
+$ mkdir AppFolder
+$ cd AppFolder
+$ npm init
+$ npm install express mysql cors --save
+
+server.js 
+:::::::::::::::::::::::::::::::::::::::::::::::::::::start
+const express = require("express");
+const cors = require("cors");
+const app = express();
+var corsOptions = {
+  origin: "http://localhost:8081"
+};
+app.use(cors(corsOptions));
+// parse requests of content-type - application/json
+app.use(express.json());
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }));
+// simple route
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to bezkoder application." });
+});
+// set port, listen for requests
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
+});
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::end
+
+Project structure :
+AppFolder       
+ |_______app
+ |        |____config
+ |        |       |___db.config.js
+ |        |
+ |        |____controllers
+ |        |       |___utilisateur.controller.js
+ |        |       |___recommandation.controller.js
+ |        |       |___produit.controller.js
+ |        |
+ |        |____models
+ |        |       |___db.js
+ |        |       |___utilisateur.model.js
+ |        |       |___recommandation.model.js
+ |        |       |___produit.model.js
+ |        |
+ |        |____routes
+ |        |       |___utilisateur.routes.js
+ |        |       |___recommandation.routes.js
+ |        |       |___produit.routes.js
+ |        |_
+ |
+ |
+ |_server.js
+ |_package.json
+ |_package-lock.json
+
+
+app/config/db.config.js
+::::::::::::::::::::::::::::::Start
+module.exports = {
+HOST: 'localhost',  //192.168.10.10
+USER: 'homestead', 
+PASSWORD: 'homestead',
+DB: 'homestead',
+}
+::::::::::::::::::::::::::::::End
+
+app/models/db.js
+::::::::::::::::::::::::::::::Start
+const mysql = require("mysql");
+const dbConfig = require("../config/db.config.js");
+// Create a connection to the database
+const connection = mysql.createConnection({
+  host: dbConfig.HOST,
+  user: dbConfig.USER,
+  password: dbConfig.PASSWORD,
+  database: dbConfig.DB
+});
+// open the MySQL connection
+connection.connect(error => {
+  if (error) throw error;
+  console.log("Successfully connected to the database.");
+});
+module.exports = connection;
+::::::::::::::::::::::::::::::End
+
+
+Define the model : CRUD functions
+  create a new Object
+  find a Object by id
+  get all Objects
+  get all published Objects
+  update a Object by id
+  remove a Object
+  remove all Objects
+
+Create the Controller
+  create
+  findAll
+  findOne
+  findAllPublished
+  update
+  delete
+  deleteAll
+
+Define routes  
+  /recommandations: GET, POST, DELETE
+  /recommandations/:id: GET, PUT, DELETE
+
+include routes in server.js
+

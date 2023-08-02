@@ -1,0 +1,34 @@
+http://localhost:8088/api/auth/signup
+
+{
+    "nom": "admin",
+    "prenom": "admin",
+    "tel": "12345678",
+    "email": "admin@infoesprit.technology",
+    "login": "admin",
+    "password": "admin",
+    "profil": 1,
+    "permissions": 1,
+    "etat": 1,
+    "date_ins": "2022-03-12T10:35:19.000Z",
+    "roles": ["admin", "user"]
+}
+
+
+http://localhost:8088/api/namespace/public
+
+http://localhost:8088/api/namespace/user
+
+http://localhost:8088/api/auth/signin
+{
+   "login": "admin",
+    "password": "admin"
+}
+
+headers -> x-access-token : accesstoken generated
+
+http://localhost:8088/api/namespace/user
+http://localhost:8088/api/namespace/analyste
+
+
+http://localhost:8088/api/auth/refreshtoken
